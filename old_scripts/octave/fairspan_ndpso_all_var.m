@@ -1,0 +1,64 @@
+#! /usr/bin/octave -qf
+span_diff_path="/g/db/res_2/graphs/span_diff.eps";
+time_diff_path="/g/db/res_2/graphs/time_diff.eps";
+span_time_diff_path_50_50="/g/db/res_2/graphs/span_time_diff_50_50.eps";
+span_time_diff_path_40_60="/g/db/res_2/graphs/span_time_diff_40_60.eps";
+span_time_diff_path_30_70="/g/db/res_2/graphs/span_time_diff_30_70.eps";
+span_time_diff_path_20_80="/g/db/res_2/graphs/span_time_diff_20-80.eps";
+span_time_diff_path_10_90="/g/db/res_2/graphs/span_time_diff_10_90.eps";
+span_time_diff_path_0_100="/g/db/res_2/graphs/span_time_diff_0_100.eps";
+graphics_toolkit ("gnuplot");
+in_file=importdata("/g/db/res_2/fairspan_ndpso_avg_result_prop_conv_100_fairspan_init_comp.csv",",",1);
+span_time_file=importdata("/g/db/res_2/fairspan_ndpso_avg_result_prop_conv_100_init_span_time_objective.csv",",",1);
+############## Extract span and time in different graphs ######################
+ids=[1:rows(in_file.data)]';
+plot(ids(:,1),in_file.data(:,7),".;diff;")
+xlim([0 7560]);
+ylabel("Span diff (%)");
+xlabel("Dataset ID");
+title("Span comparison, Fairspan vs. NDPSO with 100-iterations conversion threshold and Fairspan initial solution");
+print(gcf,"-color","-deps",span_diff_path);
+plot(ids(:,1),in_file.data(:,2),"r.;NDPSO;",ids(:,1),in_file.data(:,6),"b.;fairspan;")
+xlim([0 7560]);
+ylabel("Time (mill-Sec)");
+xlabel("Dataset ID");
+title("Time comparison, Fairspan vs. NDPSO with 100-iterations conversion threshold and Fairspan initial solution");
+print(gcf,"-color","-deps",time_diff_path);
+############## Extract span and time in the same objective function with different weight for each of them ############
+plot(span_time_file.data(:,1),span_time_file.data(:,11),".;50-50;");
+xlim([0 7560]);
+ylabel("Span-time imporvement ");
+xlabel("Dataset ID");
+#title("Span_time comparison 50-50, Fairspan vs. NDPSO with 100-iterations conversion threshold and Fairspan initial solution");
+print(gcf,"-color","-deps",span_time_diff_path_50_50);
+plot(span_time_file.data(:,1),span_time_file.data(:,12),".;40-60;");
+xlim([0 7560]);
+ylabel("Span-time imporvement ");
+xlabel("Dataset ID");
+#title("Span_time comparison 40-60, Fairspan vs. NDPSO with 100-iterations conversion threshold and Fairspan initial solution");
+print(gcf,"-color","-deps",span_time_diff_path_40_60);
+plot(span_time_file.data(:,1),span_time_file.data(:,13),".;30-70;");
+xlim([0 7560]);
+ylabel("Span-time imporvement ");
+xlabel("Dataset ID");
+#title("Span_time comparison 30-70, Fairspan vs. NDPSO with 100-iterations conversion threshold and Fairspan initial solution");
+print(gcf,"-color","-deps",span_time_diff_path_30_70);
+plot(span_time_file.data(:,1),span_time_file.data(:,14),".;20-80;");
+xlim([0 7560]);
+ylabel("Span-time imporvement ");
+xlabel("Dataset ID");
+#title("Span_time comparison 20-80, Fairspan vs. NDPSO with 100-iterations conversion threshold and Fairspan initial solution");
+print(gcf,"-color","-deps",span_time_diff_path_20_80);
+plot(span_time_file.data(:,1),span_time_file.data(:,15),".;10-90;");
+xlim([0 7560]);
+ylabel("Span-time imporvement ");
+xlabel("Dataset ID");
+#title("Span_time comparison 10-90, Fairspan vs. NDPSO with 100-iterations conversion threshold and Fairspan initial solution");
+print(gcf,"-color","-deps",span_time_diff_path_10_90);
+plot(span_time_file.data(:,1),span_time_file.data(:,10),".;0-100;");
+xlim([0 7560]);
+ylabel("Span-time imporvement ");
+xlabel("Dataset ID");
+#title("Span_time comparison 0-100, Fairspan vs. NDPSO with 100-iterations conversion threshold and Fairspan initial solution");
+print(gcf,"-color","-deps",span_time_diff_path_0_100);
+graphics_toolkit ("fltk");
